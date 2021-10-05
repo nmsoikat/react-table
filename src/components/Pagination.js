@@ -17,10 +17,15 @@ function Pagination() {
     previousPage,
     canNextPage,
     canPreviousPage,
+    gotoPage,
+    pageCount,
     state,
     pageOptions,
     prepareRow,
-  } = useTable({ columns, data }, usePagination);
+  } = useTable(
+    { columns, data, initialState: { pageIndex: 2 } },
+    usePagination
+  );
 
   const { pageIndex } = state;
   return (
@@ -57,11 +62,29 @@ function Pagination() {
           </strong>{" "}
         </span>
 
+        <span>
+          | Go to{" "}
+          <input
+            type="number"
+            defaultValue={pageIndex + 1}
+            style={{ width: "50px" }}
+            onChange={(e) => {
+              const pageNum = e.target.value ? Number(e.target.value) - 1 : 0;
+              gotoPage(pageNum);
+            }}
+          />
+        </span>
+        <button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
+          {"<<"}
+        </button>
         <button onClick={() => previousPage()} disabled={!canPreviousPage}>
           Previous
         </button>
         <button onClick={() => nextPage()} disabled={!canNextPage}>
           Next
+        </button>
+        <button onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage}>
+          {">>"}
         </button>
       </div>
     </>
