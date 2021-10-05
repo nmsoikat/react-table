@@ -1,5 +1,6 @@
 import "./App.css";
 import BasicTable from "./components/BasicTable";
+import ColumnOrder from "./components/ColumnOrder";
 import FilteringTable from "./components/FilteringTable";
 import Pagination from "./components/Pagination";
 import RowSelection from "./components/RowSelection";
@@ -12,7 +13,8 @@ function App() {
       {/* <SortingTable /> */}
       {/* <FilteringTable /> */}
       {/* <Pagination /> */}
-      <RowSelection />
+      {/* <RowSelection /> */}
+      <ColumnOrder />
     </div>
   );
 }
