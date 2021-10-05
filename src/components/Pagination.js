@@ -12,22 +12,29 @@ function Pagination() {
     getTableProps,
     getTableBodyProps,
     headerGroups,
+
     page,
     nextPage,
     previousPage,
     canNextPage,
     canPreviousPage,
+
     gotoPage,
     pageCount,
+
+    setPageSize,
+
     state,
     pageOptions,
+
     prepareRow,
   } = useTable(
     { columns, data, initialState: { pageIndex: 2 } },
     usePagination
   );
 
-  const { pageIndex } = state;
+  const { pageIndex, pageSize } = state;
+
   return (
     <>
       <table {...getTableProps()}>
@@ -61,7 +68,6 @@ function Pagination() {
             {pageIndex + 1} of {pageOptions.length}
           </strong>{" "}
         </span>
-
         <span>
           | Go to{" "}
           <input
@@ -73,7 +79,17 @@ function Pagination() {
               gotoPage(pageNum);
             }}
           />
-        </span>
+        </span>{" "}
+        <select
+          value={pageSize}
+          onChange={(e) => setPageSize(Number(e.target.value))}
+        >
+          {[10, 20, 25, 50].map((pageSize) => (
+            <option key={pageSize} value={pageSize}>
+              show {pageSize}
+            </option>
+          ))}
+        </select>{" "}
         <button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
           {"<<"}
         </button>
